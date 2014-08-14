@@ -1,0 +1,25 @@
+﻿<!doctype html>
+<html ng-app="CountModule">
+  <head>
+    <meta charset=utf-8>
+    <title>HTML5 canvas demo</title>
+    	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.17/angular.min.js"></script>  
+		<style>
+		*{
+			box-sizing:border-box;
+		}
+       
+		</style>
+  </head>
+  <body>
+    <ul ng-controller="CountController">
+		<li ng-click="count=3" > {{count}}</li>
+	</ul>
+  </body>
+  <script>
+	 var CountModule = angular.module("CountModule",[]);
+	 CountModule.controller("CountController",['$scope',function($scope){
+		 $scope.count = 0;
+	 }]);
+  </script>
+</html>

@@ -1,0 +1,44 @@
+﻿<!doctype html>
+<html ng-app="NewsModule">
+  <head>
+    <meta charset=utf-8>
+    <title>HTML5 canvas demo</title>
+    	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.17/angular.min.js"></script>  
+		<style>
+		*{
+			box-sizing:border-box;
+		}
+		.menu-title-open li{
+			border:1px solid red;
+		}
+		.menu-title-open{
+			background:#e9e9e9;
+		}
+		.menu-titile-close{
+			backgorund:#f60;
+		}
+		</style>
+  </head>
+  <body>
+    <div ng-controller = 'NewsController'>
+		<button ng-click = "toggleMenu()">切换</button>
+		{{menuState.show}}
+		<ul ng-show ="menuState.show" class="menu-title-{{menuState.state}}">  
+			<li ng-repeat="new in news">{{new.title}}</li>
+		</ul>
+	</div>
+	<script>
+		var NewsModule = angular.module("NewsModule",[]);
+		NewsModule.controller("NewsController",['$scope',function($scope){
+			$scope.news = [{title:"上头条"},{title:"接着上"},{title:"还要上"}];
+			$scope.menuState = {show:false};//这里跟书上的不同
+			$scope.toggleMenu = function(){
+				$scope.menuState.show = !$scope.menuState.show;
+				$scope.menuState.show && ($scope.menuState.state="open")||($scope.menuState.state="close")
+			}
+			$scope.menuState.state="close"
+		}]);
+	
+	</script>
+  </body>
+</html>

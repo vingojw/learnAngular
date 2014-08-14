@@ -1,0 +1,30 @@
+﻿<!doctype html>
+<html ng-app="StudentModule">
+  <head>
+    <meta charset=utf-8>
+    <title>HTML5 canvas demo</title>
+	 
+    	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.17/angular.min.js"></script>  
+  </head>
+  <body ng-controller = "StudentController">
+    <ul >
+      <li ng-repeat = "stu in students">元素位置:{{$index}}是否中间{{$middle}}是否开头{{$first}}是否最后{{$last}}姓名{{stu.name}} 年龄{{stu.age}}</li>
+    </ul>
+	<button ng-click = "insert()">添加</button>
+    <script type="text/javascript">
+    var StudentModule = angular.module("StudentModule",[]);
+    StudentModule.controller("StudentController",['$scope',function($scope){
+		$scope.students = [
+		{name : "aa1",age:1},
+		{name : "aa11",age:11},
+		{name : "aa12",age:12},
+		{name : "aa13",age:13}
+		];
+		$scope.insert = function(){
+			$scope.students.splice(1,0,{name:"bb",age:111});
+		}
+    }])     
+
+    </script>       
+  </body>
+</html>

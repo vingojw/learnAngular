@@ -1,0 +1,45 @@
+﻿<!doctype html>
+<html ng-app="NgClassModule">
+  <head>
+    <meta charset=utf-8>
+    <title>HTML5 canvas demo</title>
+    	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.17/angular.min.js"></script>  
+		<style>
+		*{
+			box-sizing:border-box;
+		}
+		.error{
+			background-color:red;
+		}
+		
+		.warning{
+			background-color:yellow;
+		}
+		
+		</style>
+  </head>
+  <body>
+    <div ng-controller="HeaderController">
+		<div ng-class='{error:isError,warning:isWarning}'>{{MessageText}}</div>
+		<button ng-click="showError()">错误</button>
+		<button ng-click="showWarning()">警告</button>
+	</div>
+  </body>
+  <script>
+	var NgClassModule = angular.module("NgClassModule",[]);
+	NgClassModule.controller('HeaderController',['$scope',function($scope){
+		$scope.showError = function(){
+			$scope.MessageText = "错误";
+			$scope.isError = true;
+			$scope.isWarning = false;
+		}
+		
+		$scope.showWarning = function(){
+			$scope.MessageText = "警告";
+			$scope.isError = false;
+			$scope.isWarning = true;
+		}
+	
+	}]);
+  </script>
+</html>
