@@ -1,0 +1,57 @@
+﻿<!doctype html>
+<html ng-app="CartModule">
+  <head>
+    <meta charset=utf-8>
+    <title>HTML5 canvas demo</title>
+    	<script src="angular.1.3.0-beta.17.js"></script>  
+		<style>
+		*{
+			box-sizing:border-box;
+		}
+       
+		</style>
+  </head>
+  <body>
+      <div ng-controller="CartController">
+		<div ng-repeat="item in items">
+			<span>{{item.title}}</span>
+			<input ng-model="item.quantity" />
+			<span>{{item.price|currency}}</span>
+			<span>{{item.price * item.quantity | currency}}</span>
+			<button ng-click="add($index);">+</button>
+		</div>
+		<div> Total:{{bill.totalCart|currency}}</div>
+		<div>Discount:{{bill.discount | currency}}</div>
+		<div>Subtotal:{{bill.subtotal|currency}}</div>
+	  </div>
+  </body>
+  <script>
+	var CartModule = angular.module("CartModule",[]);
+	CartModule.controller("CartController",['$scope',function($scope){
+		$scope.bill = {};
+		$scope.items = [
+			{title:'sdf',quantity:8,price:3.95},
+			{title:'sdf',quantity:8,price:3.95},
+			{title:'sdf',quantity:8,price:3.95}
+			
+		];
+		$scope.add = function(itemIndex){
+			$scope.items[itemIndex].quantity+=1;
+		}
+		
+		//监控item数组，那么angular就会生成一份item数组的拷贝，
+		//用来进行比较操作，对于大型的items数组来说，如果每次在angular显示页面时只需要重新计算bill属性那么性能就会好很多
+		
+	    $scope.$watch(function(){
+			var total  = 0;
+			for(var i = 0; i < $scope.items.length; i++){
+				total = total + $scope.items[i].quantity * $scope.items[i].price;
+			}
+			$scope.bill.totalCart = total;
+			$scope.bill.discount = total > 100 ? 10 : 0;
+			$scope.bill.subtotal = total - $scope.bill.discount;
+		});
+	}]);
+	 var counts=0;
+  </script>
+</html>

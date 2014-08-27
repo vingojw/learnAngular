@@ -44,7 +44,7 @@
 			$scope.bill.subtotal = total - $scope.bill.discount;
 			counts++;
 		}
-	    $scope.$watch('items',calculateTotals,true);
+	    $scope.$watch('items',calculateTotals,true); //如果不加true 那么只会跟绑定的单个input有交互效果
 	}]);
 	 var counts=0;
   </script>

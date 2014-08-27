@@ -1,0 +1,43 @@
+<!doctype html>
+<html ng-app="MyModule">
+
+<head>
+    <meta charset="utf-8">
+    <script src="js/angular-1.3.0.js"></script>
+</head>
+
+<body>
+	<div ng-controller='MyCtrl'>
+	<greeting greet="sayHello(name)"></greeting>
+	<greeting greet="sayHello(name)"></greeting>
+	<greeting greet="sayHello(name)"></greeting>
+	</div>
+</body>
+<script>
+	var myModule = angular.module('MyModule',[]);
+	myModule.controller('MyCtrl',['$scope',function($scope){
+		$scope.sayHello=function(name){
+			console.log('hello'+name);
+		}
+	}]);
+	myModule.directive('greeting',function(){
+		return {
+			restrict:'AE',
+			scope:{
+				greet:'&'
+			},
+			template:'<div><input type="text" ng-model="userName" />'+
+				'<button ng-click="greet({name:userName})">greeting</button></div>'
+		}
+	});
+
+	/*
+	@  把当前属性作为字符串传递
+	= 与父scope中的属性进行双向绑定
+	&传递一个来自父scope的函数，稍后调用
+
+	*/
+
+	 
+</script>
+</html>

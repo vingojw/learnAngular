@@ -1,0 +1,53 @@
+﻿<!doctype html>
+<html ng-app="ShoppingModule">
+  <head>
+    <meta charset=utf-8>
+    <title>HTML5 canvas demo</title>
+    	<script src="angular.1.3.0-beta.17.js"></script>  
+		<style>
+		*{
+			box-sizing:border-box;
+		}
+       
+		</style>
+  </head>
+  <body>
+      <div ng-controller="CartController">
+		<div ng-repeat="item in items">
+			<span>{{item.title}}</span>
+			<span>{{item.price|currency}}</span>
+			<span>{{item.description}}</span>
+			<button ng-click="add($index);">+</button>
+		</div>
+		<!--div> Total:{{bill.totalCart|currency}}</div>
+		<div>Discount:{{bill.discount | currency}}</div>
+		<div>Subtotal:{{bill.subtotal|currency}}</div-->
+	  </div>
+  </body>
+  <script>
+	var shoppingModule = angular.module('ShoppingModule',[]);
+	//创建服务
+	shoppingModule.factory('Items',function(){
+		var items = {};
+		items.query = function(){
+			//loading data...
+		    items.data = [
+				{title:'Paint pots',description:'Pots full of paint',price:3.95},
+				{title:'Paint pots',description:'Pots full of paint',price:3.95},
+				{title:'Paint pots',description:'Pots full of paint',price:3.95}
+			];
+			return items.data;
+		}
+		items.add = function(index){
+			items.data[index].price +=1;
+		}
+		return items;
+	});
+	
+	shoppingModule.controller('CartController',['$scope','Items',function($scope,Items){
+	console.log(Items.query());
+		$scope.items = Items.query();
+		$scope.add = Items.add;
+	}]);
+  </script>
+</html>
