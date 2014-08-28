@@ -3,53 +3,92 @@
   <head>
     <meta charset=utf-8>
     <title>HTML5 canvas demo</title>
-    	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.17/angular.min.js"></script>  
 		<style>
 		*{
 			box-sizing:border-box;
-			padding:0;margin:0;
-			font-size:30px;
+			padding:0;margin:10px;
+			font-size:24px;
+		}
+		body{
+			color:#33768D;
 		}
 		input{
 			width: 100px;
 			text-align: center;
 			margin:0 10px;
-		}
-		.bsn{
+			text-align:right;
 			border:none;
 		}
-		.bw1{
-			border:1px solid #eee;
+		.px{
+			border:1px solid #33768D;
 		}
+		
+		.item{
+			display:inline-block;
+			width:45%;
+			vertical-align:top;
+		}
+ 
+		button{
+			display: block;
+			width: 50%;
+			padding: 0.5em 1em;
+			color: #fff;
+			background:#33768D;
+			
+		}
+		.convertPx{width:100%;text-align: center;}
 		</style>
+		<script src="http://cdn.bootcss.com/angular.js/1.3.0-beta.8/angular.js"></script>
   </head>
   <body ng-controller="UnitConversionController">
-  <div>
+  <div class="item">
     <pre>
-	pt em % 单位换算，已知px
-		pt = ( px * 3 ) / 4;
-		em = pt / 12;
-		% = (pt / 12) * 100;
-	如
-		pt = (8 * 3) / 4 = 6pt
-		em = 8 / 12 = 0.5em
-		% = 0.5 * 100 = 50%
+px 转换 pt em % 
+	pt = ( px * 3 ) / 4;
+	em = pt / 12;
+	% = (pt / 12) * 100;
+如
+	pt = (8 * 3) / 4 = 6pt
+	em = 8 / 12 = 0.5em
+	% = 0.5 * 100 = 50%
 	</pre>
-	<input class="bsn" type="text" ng-model="pt"/>pt = (<input type="text" ng-model="px"/>* 3) / 4     <br/>
+	<input class="bsn" type="text" ng-model="pt"/>pt = (<input type="text" class="px" ng-model="px"/>px* 3) / 4     <br/>
 	<input class="bsn" type="text" ng-model="em"/>em = {{pt}} / 12   <br/>
     <input class="bsn" type="text" ng-model="Percentage"/>%  = {{pt}} / 12 * 100 <br/>
+  </div>
+	<div class="item">
+		<div>定义一个根元素px<input class="px" ng-model="px2rem"  /></div>
+		<div>想要转换的px单位','隔开</div>
+		<div><input class="px convertPx" ng-model="convertPx"  /></div>
+		<div ng-repeat="res in converPx2RemResult">{{res}}</div>
 	</div>
-	
   </body>
   <script>
 	 var UnitConversion = angular.module('UnitConversion',[]);
 	 UnitConversion.controller('UnitConversionController',['$scope',function($scope){
-			$scope.px = 12;
+		$scope.px = 12;
 		$scope.$watch(function(){
 			$scope.pt = ($scope.px * 3) /4;
 			$scope.em = $scope.pt / 12;
 			$scope.Percentage = $scope.pt / 12 * 100;
 		});
+		
+		
+		
+		$scope.px2rem = 16;
+		$scope.convertPx = "8,9,10,11,12,13,14,15,16,18,20,22,24,26,28,30,32";
+		$scope.$watch(function(){
+			var ret = [],rootPx = $scope.px2rem;
+			$scope.convertPx.split(",").map(function(a){
+				ret.push(a+"px = "+ a/rootPx +"rem");
+			});
+			$scope.converPx2RemResult = ret;
+		});
+		
+		
+		
+		
 	 }]);
 	 
 	 
